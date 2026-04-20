@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Platforma SP — задачи крупного бизнеса и решения социального</title>
+    <meta
+      name="description"
+      content="Демонстрационный MVP-лендинг платформы, где крупные компании публикуют задачи, а социальный бизнес предлагает решения."
+    />
+    <style>
+      :root {
+        --bg: #f8faff;
+        --surface: #ffffff;
+        --surface-soft: #f2f5ff;
+        --text: #101828;
+        --muted: #667085;
+        --primary: #4f46e5;
+        --primary-strong: #4338ca;
+        --border: #e5e7eb;
+        --shadow: 0 16px 40px rgba(16, 24, 40, 0.08);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: radial-gradient(circle at top left, #eef2ff 0%, var(--bg) 40%, #ffffff 100%);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      .container {
+        width: min(1120px, 92vw);
+        margin: 0 auto;
+      }
+
+      .section {
+        padding: 5.5rem 0;
+      }
+
+      .section-title {
+        font-size: clamp(1.7rem, 4vw, 2.3rem);
+        letter-spacing: -0.02em;
+        margin-bottom: 0.85rem;
+      }
+
+      .section-lead {
+        color: var(--muted);
+        max-width: 700px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--primary);
+        background: #eef2ff;
+        border: 1px solid #e0e7ff;
+        border-radius: 999px;
+        padding: 0.35rem 0.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .hero {
+        padding: 6.5rem 0 4.25rem;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 3.7rem);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        margin-bottom: 1.1rem;
+      }
+
+      .hero p {
+        color: var(--muted);
+        font-size: clamp(1rem, 2.1vw, 1.2rem);
+        max-width: 620px;
+      }
+
+      .hero-actions {
+        margin-top: 1.9rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        padding: 0.78rem 1.15rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(120deg, var(--primary), #6d5ef5);
+        color: #fff;
+        box-shadow: 0 12px 24px rgba(79, 70, 229, 0.28);
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(120deg, var(--primary-strong), #5b50f0);
+      }
+
+      .btn-ghost {
+        border-color: var(--border);
+        background: #fff;
+        color: var(--text);
+      }
+
+      .hero-card,
+      .card,
+      .task-card,
+      .cta-box {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card {
+        padding: 1.2rem;
+      }
+
+      .hero-card h3 {
+        margin-bottom: 0.65rem;
+        font-size: 1.05rem;
+      }
+
+      .hero-list {
+        list-style: none;
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      .hero-list li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.6rem;
+        padding: 0.75rem;
+        background: var(--surface-soft);
+        border-radius: 12px;
+      }
+
+      .pill {
+        font-size: 0.8rem;
+        padding: 0.24rem 0.55rem;
+        border-radius: 999px;
+        background: #e0e7ff;
+        color: #3730a3;
+        font-weight: 600;
+      }
+
+      .grid-3,
+      .grid-2 {
+        margin-top: 2rem;
+        display: grid;
+        gap: 1rem;
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card {
+        padding: 1.2rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .participant-group {
+        margin-top: 2rem;
+      }
+
+      .participant-group h3 {
+        margin-bottom: 0.9rem;
+        font-size: 1.08rem;
+      }
+
+      .participant-grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .participant-card .logo-slot {
+        width: 100%;
+        min-height: 96px;
+        border: 1px dashed #c7d2fe;
+        border-radius: 12px;
+        background: #f8faff;
+        color: #6366f1;
+        display: grid;
+        place-items: center;
+        margin-bottom: 0.75rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .card:hover,
+      .task-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 44px rgba(16, 24, 40, 0.1);
+      }
+
+      .icon {
+        width: 34px;
+        height: 34px;
+        color: var(--primary);
+        margin-bottom: 0.8rem;
+      }
+
+      .card h3 {
+        margin-bottom: 0.55rem;
+        font-size: 1.12rem;
+      }
+
+      .card p,
+      .task-card p,
+      .audience-item li,
+      .meta-item {
+        color: var(--muted);
+      }
+
+      .task-card {
+        padding: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .task-header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.8rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .task-meta {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+      }
+
+      .meta-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 0.35rem 0.75rem;
+        background: #fff;
+        font-size: 0.92rem;
+      }
+
+      .cta-box {
+        margin-top: 1.5rem;
+        padding: 1.6rem;
+        text-align: center;
+      }
+
+      .cta-form {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+      }
+
+      input[type="email"] {
+        width: min(340px, 100%);
+        border: 1px solid #d0d5dd;
+        border-radius: 12px;
+        padding: 0.78rem 0.9rem;
+        font: inherit;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
+
+      .status {
+        margin-top: 0.75rem;
+        color: #03672f;
+        font-size: 0.95rem;
+        min-height: 1.3rem;
+      }
+
+      footer {
+        margin-top: 2rem;
+        border-top: 1px solid var(--border);
+        padding: 1.8rem 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .fade-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .js .fade-in {
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .js .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .grid-3 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 680px) {
+        .section {
+          padding: 4.1rem 0;
+        }
+
+        .grid-3,
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          padding-top: 5.1rem;
+        }
+      }
+      .logo-slot {
+        width: 100px; /* или любой нужный размер */
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .participant-logo {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain; /* сохранит пропорции логотипа */
+      }
+
+    </style>
+  </head>
+  <body>
+    <header style="background: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 0; position: sticky; top: 0; z-index: 100;">
+      <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+        <a href="/" style="font-weight: 800; font-size: 1.2rem; text-decoration: none; color: var(--primary);">Platforma SP</a>
+        <nav style="display: flex; gap: 1rem;">
+          <a href="/login" class="btn btn-ghost" style="padding: 0.5rem 1rem;">Войти</a>
+          <a href="/register" class="btn btn-primary" style="padding: 0.5rem 1rem;">Начать работу</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <span class="eyebrow">MVP концепция платформы</span>
+            <h1>Соединяем задачи крупного бизнеса с решениями социального.</h1>
+            <p>
+              Единое пространство, где корпорации публикуют реальные  социальные задачи,
+              а социальные предприниматели, команды и независимые специалисты предлагают
+              конкретные решения с понятными сроками и бюджетом.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#cta">Создать задачу</a>
+              <a class="btn btn-ghost" href="#cta">Предложить решение</a>
+            </div>
+          </div>
+
+          <aside class="hero-card fade-in" aria-label="Пример активности">
+            <h3>Сейчас на платформе</h3>
+            <ul class="hero-list">
+              <li>
+                <span>Закупка сувенирной продукции</span>
+                <span class="pill">12 откликов</span>
+              </li>
+              <li>
+                <span>Проведение меропритяие с инклюзией</span>
+                <span class="pill">8 откликов</span>
+              </li>
+              <li>
+                <span>Организация социального маркета</span>
+                <span class="pill">15 откликов</span>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <span class="eyebrow">Как это работает</span>
+          <h2 class="section-title">Простой процесс в 3 шага</h2>
+          <p class="section-lead">
+            Прозрачный workflow помогает быстро находить исполнителей и отбирать
+            сильные идеи без лишней бюрократии.
+          </p>
+
+          <div class="grid-3">
+            <article class="card fade-in">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 6a2 2 0 0 1 2-2h9l5 5v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6z" stroke="currentColor" stroke-width="1.7"/>
+                <path d="M13 4v5h5" stroke="currentColor" stroke-width="1.7"/>
+              </svg>
+              <h3>1. Бизнес публикует задачу</h3>
+              <p>
+                Компания описывает цель, ограничения, бюджет и дедлайн. Всё
+                структурировано в одной карточке.
+              </p>
+            </article>
+
+            <article class="card fade-in">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3 8h18M7 4v4m10-4v4M6 12h4m-4 4h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                <rect x="3" y="5" width="18" height="15" rx="2" stroke="currentColor" stroke-width="1.7"/>
+              </svg>
+              <h3>2. Социальный бизнес предлагает решения</h3>
+              <p>
+                Подрядчики, эксперты и команды отправляют свои подходы с оценкой
+                сроков, стоимости и ценности.
+              </p>
+            </article>
+
+            <article class="card fade-in">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/>
+                <path d="m8.5 12.2 2.3 2.3 4.8-5.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <h3>3. Бизнес выбирает лучшее</h3>
+              <p>
+                Заказчик сравнивает отклики, общается с исполнителями и утверждает
+                финальное решение.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <span class="eyebrow">Для кого платформа</span>
+          <h2 class="section-title">Две стороны — единая ценность</h2>
+          <div class="grid-2">
+            <article class="card fade-in audience-item">
+              <h3>Крупный бизнес</h3>
+              <ul>
+                <li>Доступ к широкому пулу решений из разных отраслей.</li>
+                <li>Снижение time-to-solution за счёт конкурентного отбора.</li>
+                <li>Понятные предложения с фокусом на измеримый результат.</li>
+              </ul>
+            </article>
+
+            <article class="card fade-in audience-item">
+              <h3>Социальный бизнес</h3>
+              <ul>
+                <li>Прямой выход на крупных заказчиков без длинных цепочек.</li>
+                <li>Возможность показать экспертизу на реальных социальных задачах.</li>
+                <li>Рост портфолио и предсказуемый pipeline проектов.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <span class="eyebrow">Примеры участников</span>
+          <h2 class="section-title">Отдельные карточки участников платформы</h2>
+
+          <div class="participant-group">
+            <h3>Крупный бизнес</h3>
+            <div class="participant-grid">
+              <article class="card fade-in participant-card">
+                <div class="logo-slot"><img src="imgs/logo_sber.jpg" alt="Сбер Логотип" class="participant-logo"></div>
+                <h4>Сбер</h4>
+                <p>Краткое описание компании и её интереса к задачам платформы.</p>
+              </article>
+              <article class="card fade-in participant-card">
+                <div class="logo-slot"><img src="imgs/logo_avito.svg" alt="Авито Логотип" class="participant-logo"></div>
+                <h4>Авито</h4>
+                <p>Краткое описание компании и её интереса к задачам платформы.</p>
+              </article>
+              <article class="card fade-in participant-card">
+                <div class="logo-slot"><img src="imgs/logo_yandex.png" alt="Яндекс Логотип" class="participant-logo"></div>
+                <h4>Яндекс</h4>
+                <p>Краткое описание компании и её интереса к задачам платформы.</p>
+              </article>
+              <article class="card fade-in participant-card">
+                <div class="logo-slot"><img src="imgs/logo_a101.svg" alt="A101 Логотип" class="participant-logo"></div>
+                <h4>A101</h4>
+                <p>Краткое описание компании и её интереса к задачам платформы.</p>
+              </article>
+              <article class="card fade-in participant-card">
+                <div class="logo-slot"><img src="imgs/logo_pioneer.png" alt="PIONEER Логотип" class="participant-logo"></div>
+                <h4>PIONEER</h4>
+                <p>Краткое описание компании и её интереса к задачам платформы.</p>
+              </article>
+              <article class="card fade-in participant-card">
+                <div class="logo-slot"><img src="imgs/logo_magnit.png" alt="Магнит Логотип" class="participant-logo"></div>
+                <h4>Магнит</h4>
+                <p>Краткое описание компании и её интереса к задачам платформы.</p>
+              </article>
+              <article class="card fade-in participant-card">
+                <div class="logo-slot"><img src="imgs/logo_sibur.png" alt="Сибур Логотип" class="participant-logo"></div>
+                <h4>Сибур</h4>
+                <p>Краткое описание компании и её интереса к задачам платформы.</p>
+              </article>
+              <article class="card fade-in participant-card">
+                <div class="logo-slot"><img src="imgs/logo_2gis.png" alt="2GIS Логотип" class="participant-logo"></div>
+                <h4>2GIS</h4>
+                <p>Краткое описание компании и её интереса к задачам платформы.</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="participant-group">
+            <h3>Социальные предприниматели</h3>
+            <div class="participant-grid">
+              <article class="card fade-in participant-card">
+                <div class="logo-slot"><img src="imgs/logo_immer.png" alt="Иммерсивный театр народов России «Калык шынык» Логотип" class="participant-logo"></div>
+                <h4>Иммерсивный театр народов России «Калык шынык»</h4>
+                <p>Краткое описание проекта, компетенций и формата сотрудничества.</p>
+              </article>
+              <article class="card fade-in participant-card">
+                <div class="logo-slot"><img src="imgs/logo_varki.jpg" alt="ИП Иванов И.И (вязанные изделия) Логотип" class="participant-logo"></div>
+                <h4>ИП Иванов И.И (вязанные изделия)</h4>
+                <p>Краткое описание проекта, компетенций и формата сотрудничества.</p>
+              </article>
+              <article class="card fade-in participant-card">
+                <div class="logo-slot"><img src="imgs/logo_museum.jpg" alt="Музей «В тишине» Логотип" class="participant-logo"></div>
+                <h4>Музей «В тишине»</h4>
+                <p>Краткое описание проекта, компетенций и формата сотрудничества.</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="participant-group">
+            <h3>Государственные учреждения</h3>
+            <div class="participant-grid">
+              <article class="card fade-in participant-card">
+                <div class="logo-slot"><img src="imgs/logo_moscow.jpg" alt="Департамент торговли и услуг Логотип" class="participant-logo"></div>
+                <h4>Департамент торговли и услуг</h4>
+                <p>Краткое описание задач учреждения и ожидаемых социальных решений.</p>
+              </article>
+              <article class="card fade-in participant-card">
+                <div class="logo-slot"><img src="imgs/logo_pushkin.png" alt="Государственный музей имени Пушкина Логотип" class="participant-logo"></div>
+                <h4>Государственный музей имени Пушкина</h4>
+                <p>Краткое описание задач учреждения и ожидаемых социальных решений.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <span class="eyebrow">Пример задачи</span>
+          <h2 class="section-title">Закупка сувенирной продукции</h2>
+          <article class="task-card fade-in">
+            <div class="task-header">
+              <h3>Закупить вязанные изделия</h3>
+              <span class="pill">Retail Enterprise</span>
+            </div>
+            <p>
+              Требуется разработать дизайн и связать 100 вязанных руковичек из шерсти с именами сотрудников.
+            </p>
+            <div class="task-meta">
+              <span class="meta-item">💰 Бюджет: 30,000 руб</span>
+              <span class="meta-item">⏳ Дедлайн подачи: 30 дней</span>
+              <span class="meta-item">🏁 Доставка: 1 неделя</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <span class="eyebrow">Преимущества</span>
+          <h2 class="section-title">Почему этот подход работает</h2>
+
+          <div class="grid-3">
+            <article class="card fade-in">
+              <h3>Быстро</h3>
+              <p>Формат карточек и шаблонов экономит время на запуск и оценку задач.</p>
+            </article>
+            <article class="card fade-in">
+              <h3>Прозрачно</h3>
+              <p>Единые критерии выбора и сравнение откликов в одном интерфейсе.</p>
+            </article>
+            <article class="card fade-in">
+              <h3>Конкурентно</h3>
+              <p>Несколько сильных решений повышают шанс найти лучший подход.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="cta">
+        <div class="container">
+          <div class="cta-box fade-in">
+            <span class="eyebrow">Call to Action</span>
+            <h2 class="section-title">Получите ранний доступ к платформе</h2>
+            <p class="section-lead" style="margin: 0 auto;">
+              Оставьте email — пришлём приглашение в MVP и чек-лист по запуску
+              первой задачи.
+            </p>
+            <form class="cta-form" id="lead-form">
+              <label class="sr-only" for="email">Email</label>
+              <input id="email" type="email" required placeholder="you@company.com" />
+              <button class="btn btn-primary" type="submit">Оставить заявку</button>
+            </form>
+            <p class="status" id="form-status" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">© 2026 Platforma SP — Demo Landing Page (MVP)</div>
+    </footer>
+
+    <script>
+      document.documentElement.classList.add("js");
+
+      const fadeItems = document.querySelectorAll(".fade-in");
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.2 }
+        );
+
+        fadeItems.forEach((el) => observer.observe(el));
+      } else {
+        fadeItems.forEach((el) => el.classList.add("visible"));
+      }
+
+      const leadForm = document.getElementById("lead-form");
+      const status = document.getElementById("form-status");
+
+      leadForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const email = document.getElementById("email").value.trim();
+
+        if (!email) {
+          status.textContent = "Пожалуйста, введите email.";
+          return;
+        }
+
+        status.textContent = "Спасибо! Заявка принята — мы свяжемся с вами.";
+        leadForm.reset();
+      });
+    </script>
+  </body>
+</html>
